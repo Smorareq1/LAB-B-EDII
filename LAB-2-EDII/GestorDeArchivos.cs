@@ -174,7 +174,7 @@ public class GestorDeArchivos
         {
             int originalbytes = ASCIIEncoding.Unicode.GetByteCount(book.name);
             int huffmanbits = Huffman.ComprimirTexto(book.name);
-            int aritmeticobytes = 100;
+            long aritmeticobytes = CompresionAritmeticaInt.CompresionAritmeticaBytes(book.name);
             
             var bookJson = new
             {
@@ -185,7 +185,8 @@ public class GestorDeArchivos
                 price = book.price,
                 quantity = book.quantity,
                 namesize = originalbytes.ToString(),
-                namesizehuffman = huffmanbits.ToString()
+                namesizehuffman = huffmanbits.ToString(),
+                namesizearithmetic = aritmeticobytes.ToString()
                 //Falta aritmetico
             };
             
@@ -202,7 +203,7 @@ public class GestorDeArchivos
     }
     
     //////////////// Comparaciones ////////////////////
-    public static void ComparacionesMetodos(int normal, int huffmanIntFuncion, int aritmeticoInt)
+    public static void ComparacionesMetodos(int normal, int huffmanIntFuncion, long aritmeticoInt)
     {
         huffmanIntFuncion = huffmanIntFuncion / 8; //Pasar a bytes
         
