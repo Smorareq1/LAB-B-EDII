@@ -14,9 +14,9 @@
         private const ushort MSD = 0x8000;
         private const ushort SSD = 0x4000;
         private ushort scale;
-        
-        
-        public static long C
+
+
+        public static long C;
         public CompresionAritmeticaInt(string source)
         {
             _source = source;
