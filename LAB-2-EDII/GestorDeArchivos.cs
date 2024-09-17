@@ -175,7 +175,10 @@ public class GestorDeArchivos
                 author = book.author,
                 category = book.category,
                 price = book.price,
-                quantity = book.quantity
+                quantity = book.quantity,
+                namesize = book.name.Length * 2,
+                namesizehuffman = Huffman.ComprimirTexto(book.name)
+                //Falta aritmetico
             };
 
             var json = JsonConvert.SerializeObject(bookJson);

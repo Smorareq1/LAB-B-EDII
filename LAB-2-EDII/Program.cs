@@ -1,13 +1,20 @@
-﻿namespace LAB_2_EDII;
+﻿using System.Security.Principal;
+
+namespace LAB_2_EDII;
 
 class Program
 {
     static void Main(string [] args)
     {
+        Principal();
+    }
+    
+    private static void Principal()
+    {
         try
         {
-            // C:\Users\smora\Downloads\lab01_books.csv - C:\Users\smora\Downloads\lab01_search.csv - C:\Users\smora\Downloads\100Klab01\100Klab01_books.csv
-            // C:\Users\smora\Downloads\100Klab01\100Klab01_search.csv
+            // C:\Users\smora\Downloads\Ejemplo\Ejemplo_lab01_books.csv - C:\Users\smora\Downloads\Ejemplo\Ejemplo_lab01_search.csv 
+            // C:\Users\smora\Downloads\100Klab01\100Klab01_search.csv - C:\Users\smora\Downloads\100Klab01\100Klab01_books.csv
             
             string archivoResultados = "C:\\Users\\smora\\Downloads\\resultados_busquedas.txt";
             
@@ -26,6 +33,8 @@ class Program
             GestorDeArchivos.ProcesarArchivoInsertar(archivoInsertar);
             GestorDeArchivos.ProcesarArchivoBusqueda(archivoBusquedas, archivoResultados);
             Console.WriteLine("Archivo de salida genrado en descargas con el nombre de resultados_busquedas.txt");
+            
+            
         }
         catch (Exception e)
         {
