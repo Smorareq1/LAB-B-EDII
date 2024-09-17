@@ -1,10 +1,13 @@
 ﻿namespace LAB_2_EDII;
 
+using System.Text;
 using Newtonsoft.Json;
+
 public class GestorDeArchivos
 {
     public static Dictionary<string, Libro> NombreLibro = new Dictionary<string, Libro>();
     public static Dictionary<string, string> ISBNNombre = new Dictionary<string, string>();
+    private static int EqualInt = 0, DecompressInt = 0, HuffmanInt = 0, ArithmeticInt = 0; 
     
     
 
@@ -145,6 +148,8 @@ public class GestorDeArchivos
             {
                 ProcesarLineaBusqueda(line, writer);
             }
+            
+            writer.WriteLine(mensajeFinal());
         }
     }
 
@@ -167,6 +172,9 @@ public class GestorDeArchivos
     {
         if (NombreLibro.TryGetValue(name, out var book))
         {
+            int originalbytes = ASCIIEncoding.Unicode.GetByteCount(book.name);
+            int huffmanbits = Huffman.ComprimirTexto(book.name);
+            int aritmeticobytes = 100;
             
             var bookJson = new
             {
@@ -176,10 +184,12 @@ public class GestorDeArchivos
                 category = book.category,
                 price = book.price,
                 quantity = book.quantity,
-                namesize = book.name.Length * 2,
-                namesizehuffman = Huffman.ComprimirTexto(book.name)
+                namesize = originalbytes.ToString(),
+                namesizehuffman = huffmanbits.ToString()
                 //Falta aritmetico
             };
+            
+            ComparacionesMetodos(originalbytes, huffmanbits, aritmeticobytes);
 
             var json = JsonConvert.SerializeObject(bookJson);
 
@@ -189,5 +199,34 @@ public class GestorDeArchivos
         {
             //Console.WriteLine($"Libro con nombre {name} no encontrado.");
         }
+    }
+    
+    //////////////// Comparaciones ////////////////////
+    public static void ComparacionesMetodos(int normal, int huffmanIntFuncion, int aritmeticoInt)
+    {
+        huffmanIntFuncion = huffmanIntFuncion / 8; //Pasar a bytes
+        
+        if (normal == huffmanIntFuncion && huffmanIntFuncion == aritmeticoInt)
+        {
+            EqualInt++;
+        }
+        else if (normal <= huffmanIntFuncion && normal <= aritmeticoInt)
+        {
+            DecompressInt++;
+        }
+        else if (huffmanIntFuncion <= normal && huffmanIntFuncion <= aritmeticoInt)
+        {
+            HuffmanInt++;
+        }
+        else
+        {
+            ArithmeticInt++;
+        }
+    }
+
+    public static string mensajeFinal()
+    {
+        string mensaje = $"Equal: {EqualInt}\nDecompress: {DecompressInt}\nHuffman: {HuffmanInt}\nArithmetic: {ArithmeticInt}";
+        return mensaje; 
     }
 }
