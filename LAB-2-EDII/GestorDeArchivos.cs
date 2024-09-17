@@ -174,7 +174,7 @@ public class GestorDeArchivos
         {
             int originalbytes = ASCIIEncoding.Unicode.GetByteCount(book.name);
             int huffmanbits = Huffman.ComprimirTexto(book.name);
-            //long aritmeticobytes = CompresionAritmeticaInt.CompresionAritmeticaBytes(book.name);
+            long aritmeticobytes = CompresionAritmeticaInt.CompresionAritmeticaBytes(book.name);
             
             var bookJson = new
             {
@@ -186,11 +186,10 @@ public class GestorDeArchivos
                 quantity = book.quantity,
                 namesize = originalbytes.ToString(),
                 namesizehuffman = huffmanbits.ToString(),
-                //namesizearithmetic = aritmeticobytes.ToString()
-                //Falta aritmetico
+                namesizearithmetic = aritmeticobytes.ToString()
             };
             
-            //ComparacionesMetodos(originalbytes, huffmanbits, aritmeticobytes);
+            ComparacionesMetodos(originalbytes, huffmanbits, aritmeticobytes);
 
             var json = JsonConvert.SerializeObject(bookJson);
 
@@ -205,17 +204,17 @@ public class GestorDeArchivos
     //////////////// Comparaciones ////////////////////
     public static void ComparacionesMetodos(int normal, int huffmanIntFuncion, long aritmeticoInt)
     {
-        huffmanIntFuncion = huffmanIntFuncion / 8; //Pasar a bytes
+        double huffmanIntFuncionLong = (double)huffmanIntFuncion / 8; //Pasar a bytes
         
-        if (normal == huffmanIntFuncion && huffmanIntFuncion == aritmeticoInt)
+        if (normal == huffmanIntFuncionLong && huffmanIntFuncionLong == aritmeticoInt)
         {
             EqualInt++;
         }
-        else if (normal <= huffmanIntFuncion && normal <= aritmeticoInt)
+        else if (normal <= huffmanIntFuncionLong && normal <= aritmeticoInt)
         {
             DecompressInt++;
         }
-        else if (huffmanIntFuncion <= normal && huffmanIntFuncion <= aritmeticoInt)
+        else if (huffmanIntFuncionLong <= normal && huffmanIntFuncionLong <= aritmeticoInt)
         {
             HuffmanInt++;
         }

@@ -16,7 +16,7 @@ class Program
         {
             // C:\Users\smora\Downloads\Ejemplo\Ejemplo_lab01_books.csv - C:\Users\smora\Downloads\Ejemplo\Ejemplo_lab01_search.csv 
             // C:\Users\smora\Downloads\Ejemplo2\lab01_books.csv - C:\Users\smora\Downloads\Ejemplo2\lab01_search.csv
-            // C:\Users\smora\Downloads\100Klab01\100Klab01_search.csv - C:\Users\smora\Downloads\100Klab01\100Klab01_books.csv
+            // C:\Users\smora\Downloads\100K\100Klab01_books.csv - C:\Users\smora\Downloads\100K\100Klab01_search.csv
             
             string archivoResultados = "C:\\Users\\smora\\Downloads\\resultados_busquedas.txt";
             

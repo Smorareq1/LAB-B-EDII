@@ -16,7 +16,12 @@
         private ushort scale;
 
 
-        public static long C;
+        public static long CompresionAritmeticaBytes(string input)
+        {
+            CompresionAritmeticaInt compresionAritmeticaInt = new(input);
+            var compressed = compresionAritmeticaInt.Compress(input);
+            return compressed.Length;
+        }
         public CompresionAritmeticaInt(string source)
         {
             _source = source;
