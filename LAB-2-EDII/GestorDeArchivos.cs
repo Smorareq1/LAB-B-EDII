@@ -105,6 +105,12 @@ public class GestorDeArchivos
                 //Console.WriteLine("Error: Libro deserializado es nulo o tiene datos incompletos.");
                 return;
             }
+            
+            // Check for null or empty fields
+            book.author = string.IsNullOrEmpty(book.author) ? "null" : book.author;
+            book.category = string.IsNullOrEmpty(book.category) ? "null" : book.category;
+            book.price = string.IsNullOrEmpty(book.price) ? "null" : book.price;
+            book.quantity = string.IsNullOrEmpty(book.quantity) ? "null" : book.quantity;
 
             // Insert into dictionaries
             InsertarLibro(book);
