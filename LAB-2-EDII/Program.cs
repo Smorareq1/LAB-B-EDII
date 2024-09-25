@@ -18,7 +18,6 @@ class Program
             // C:\Users\smora\Downloads\Ejemplo2\lab01_books.csv - C:\Users\smora\Downloads\Ejemplo2\lab01_search.csv
             // C:\Users\smora\Downloads\100K\100Klab01_books.csv - C:\Users\smora\Downloads\100K\100Klab01_search.csv
             
-            string archivoResultados = "C:\\Users\\smora\\Downloads\\resultados_busquedas.txt";
             
             Console.WriteLine("Ingrese la ruta del archivo: ");
             string archivoInsertar = Console.ReadLine();
@@ -31,11 +30,31 @@ class Program
                 Console.WriteLine($"El archivo {archivoInsertar} o {archivoBusquedas} no existe.");
                 return;
             }
-            
-            GestorDeArchivos.ProcesarArchivoInsertar(archivoInsertar);
-            GestorDeArchivos.ProcesarArchivoBusqueda(archivoBusquedas, archivoResultados);
-            Console.WriteLine("Archivo de salida genrado en descargas con el nombre de resultados_busquedas.txt");
-            
+
+           
+                try
+                {
+                    // Crear la ruta del archivo de resultados en la misma carpeta que el archivo de inserción
+                    string carpetaResultados = System.IO.Path.GetDirectoryName(archivoInsertar);
+                    string archivoResultados = System.IO.Path.Combine(carpetaResultados, "resultados.txt");
+                    // Crear el archivo de resultados si no existe
+                    if (!System.IO.File.Exists(archivoResultados))
+                    {
+                        System.IO.File.Create(archivoResultados).Close();
+                    }
+
+                    Console.WriteLine($"Archivo de salida generado en {archivoResultados}");
+                    Console.WriteLine("Procesando archivos...");
+                    GestorDeArchivos.ProcesarArchivoInsertar(archivoInsertar);
+                    GestorDeArchivos.ProcesarArchivoBusqueda(archivoBusquedas, archivoResultados);
+                    Console.WriteLine("Listo :) ");
+
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                    throw;
+                }
             
         }
         catch (Exception e)
